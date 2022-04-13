@@ -1,8 +1,7 @@
-//*****************************************Initialisation du Canvas*****************************************************//
+import CanvasManager from "./class/CanvasManager.js";
+import { imagesBuilder, insertInHTMLTarget } from "./utils.js";
 
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
-const titre = document.getElementById("tit1");
+const canvasManager = new CanvasManager("canvas");
 
 //******************************************Déclaration variables*******************************************************//
 
