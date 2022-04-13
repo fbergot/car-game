@@ -1,5 +1,35 @@
-.ddr {
+* {
+   font-family: "Roboto";
+}
 
-    
-    margin-left: 200px;
+html {
+   height: 100vh;
+   background-color: rgb(247, 243, 243);
+}
+
+h1 {
+   text-align: center;
+   font-weight: 400;
+}
+
+.container-game-data {
+   margin-top: 0.8rem;
+   display: flex;
+   justify-content: space-around;
+   border: 1px solid red;
+}
+
+.score,
+.life {
+   font-size: 1.1rem;
+}
+
+.container-canvas {
+   display: flex;
+   justify-content: center;
+   margin-top: 0.5rem;
+}
+
+.canvas {
+   border: 1px solid gray;
 }
