@@ -1,34 +1,34 @@
-class DataOfGameManager {
-   #_loopSpeed;
+import LevelManager from "./LevelManager.js";
+
+class DataOfGameManager extends LevelManager {
    #_score;
    #_life;
-   #_stepForSpeed;
    #_stepForScore;
+   #_loopStep;
 
    constructor() {
-      this.#_loopSpeed = 40;
+      super();
       this.#_score = 0;
       this.#_life = 3;
-      this.#_stepForSpeed = 20;
       this.#_stepForScore = 10;
+      this.#_loopStep = 10;
    }
 
-   get loopSpeed() {
-      return this.#_loopSpeed;
+   get loopStep() {
+      return this.#_loopStep;
    }
 
-   loopSpeedAdjust(Switch) {
-      if (Switch === "moreSpeed") this.#_loopSpeed -= this.#_stepForSpeed;
-      else if (Switch === "lessSpeed") this.#_loopSpeed += this.#_stepForSpeed;
-      else throw Error(`Bad switch. given: ${Switch}, accepted: moreSpeed or lessSpeed`);
+   set loopStep(newloopStep) {
+      this.#_loopStep = newloopStep;
    }
 
    get score() {
       return this.#_score;
    }
 
-   scoreAdjust() {
+   scoreIncAndAnalyzeDataLevel() {
       this.#_score += this.#_stepForScore;
+      this.analyzeScoreToSetLevel(this.#_score);
    }
 
    get life() {
