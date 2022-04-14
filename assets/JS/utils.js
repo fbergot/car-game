@@ -12,9 +12,9 @@ const toBuildIMG = (path, { width, height }) => {
 
 export const imagesBuilder = () => {
    return {
-      ways: {
-         way_1: toBuildIMG("assets/img/ways/way_1.jpg", { width: 100, height: 100 }),
-         way_2: toBuildIMG("assets/img/ways/way_2.jpg", { width: 100, height: 100 }),
+      roads: {
+         road_1: toBuildIMG("assets/img/roads/road_1.jpg", { width: 100, height: 100 }),
+         road_2: toBuildIMG("assets/img/roads/road_2.jpg", { width: 100, height: 100 }),
       },
 
       cars: {
