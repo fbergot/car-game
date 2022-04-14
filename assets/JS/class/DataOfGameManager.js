@@ -6,7 +6,7 @@ class DataOfGameManager {
    #_stepForScore;
 
    constructor() {
-      this.#_loopSpeed = 1000;
+      this.#_loopSpeed = 40;
       this.#_score = 0;
       this.#_life = 3;
       this.#_stepForSpeed = 20;
