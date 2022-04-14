@@ -3,7 +3,7 @@
  * @param {{width: number, height: number}} { width, height }
  * @returns {HTMLImageElement}
  */
-const imgBuilder = (path, { width, height }) => {
+const toBuildIMG = (path, { width, height }) => {
    const img = new Image(width, height);
    img.src = path;
 
@@ -13,16 +13,16 @@ const imgBuilder = (path, { width, height }) => {
 export const imagesBuilder = () => {
    return {
       ways: {
-         way_1: imgBuilder("assets/img/ways/way_1.jpg", { width: 100, height: 100 }),
-         way_2: imgBuilder("assets/img/ways/way_2.jpg", { width: 100, height: 100 }),
+         way_1: toBuildIMG("assets/img/ways/way_1.jpg", { width: 100, height: 100 }),
+         way_2: toBuildIMG("assets/img/ways/way_2.jpg", { width: 100, height: 100 }),
       },
 
       cars: {
-         red_car: imgBuilder("assets/img/cars/redCar.png", {
+         red_car: toBuildIMG("assets/img/cars/redCar.png", {
             width: 100,
             height: 100,
          }),
-         yellow_car: imgBuilder("assets/img/cars/yellowCar.png", {
+         yellow_car: toBuildIMG("assets/img/cars/yellowCar.png", {
             width: 100,
             height: 100,
          }),
@@ -30,15 +30,26 @@ export const imagesBuilder = () => {
 
       barriers: {
          rocks: {
-            rocks_1: imgBuilder("assets/img/barriers/rock_1.jpg", {
+            rocks_1: toBuildIMG("assets/img/barriers/rock_1.png", {
                width: 100,
                height: 100,
             }),
-            rocks_2: imgBuilder("assets/img/barriers/rock_2.jpg", {
+            rocks_2: toBuildIMG("assets/img/barriers/rock_2.png", {
                width: 100,
                height: 100,
             }),
          },
+      },
+
+      precious: {
+         precious_1: toBuildIMG("assets/img/precious/precious_1.png", {
+            width: 100,
+            height: 100,
+         }),
+         precious_2: toBuildIMG("assets/img/precious/precious_2.png", {
+            width: 100,
+            height: 100,
+         }),
       },
    };
 };
