@@ -17,12 +17,11 @@ class GameManager {
    initGame() {
       this.utils.insertInHTMLTarget(this.dataOfGameManager.score, this.scoreTarget);
       this.utils.insertInHTMLTarget(this.dataOfGameManager.life, this.lifeTarget);
-      window.addEventListener("keydown", (e) => this.setCarMovements(e), false);
-
+      window.addEventListener("keydown", this.carMovements.bind(this), false);
       this.gameLoop();
    }
 
-   setCarMovements(e) {
+   carMovements(e) {
       if (e.key == "Right" || e.key == "ArrowRight") {
          this.x_Car += 150;
       } else if (e.key == "Left" || e.key == "ArrowLeft") {
@@ -33,7 +32,7 @@ class GameManager {
    gameLoop() {
       this.ctx.clearRect(0, 0, 500, 690);
       this.way();
-      setTimeout(() => this.gameLoop(), this.dataOfGameManager.loopSpeed);
+      setTimeout(this.gameLoop.bind(this), this.dataOfGameManager.loopSpeed);
    }
 
    way() {

@@ -20,7 +20,7 @@ class DataOfGameManager {
    loopSpeedAdjust(Switch) {
       if (Switch === "moreSpeed") this.#_loopSpeed -= this.#_stepForSpeed;
       else if (Switch === "lessSpeed") this.#_loopSpeed += this.#_stepForSpeed;
-      else throw Error(`Bad switch. given: ${Switch}`);
+      else throw Error(`Bad switch. given: ${Switch}, accepted: moreSpeed or lessSpeed`);
    }
 
    get score() {

@@ -12,11 +12,16 @@ h1 {
    font-weight: 400;
 }
 
+header {
+   display: flex;
+   justify-content: center;
+}
 .container-game-data {
    margin-top: 0.8rem;
    display: flex;
+   width: 500px;
    justify-content: space-around;
-   border: 1px solid red;
+   /* border: 1px solid red; */
 }
 
 .score,
