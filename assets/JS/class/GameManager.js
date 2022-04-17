@@ -13,7 +13,7 @@ class GameManager {
       this.canvas.height = 690;
       this.utils = utils;
       this.images = this.utils.imagesBuilder();
-      this.preciousManager = new PreciousManager(this.ctx, this.images.precious.precious_1);
+      this.preciousManager = new PreciousManager(this.images.precious.precious_1, this.ctx);
       this.carManager = new CarManager(this.images.cars.red_car, this.ctx);
       this.roadManager = new RoadManager(
          this.images.roads.road_1,
@@ -30,9 +30,9 @@ class GameManager {
    }
 
    gameLoop() {
-      this.ctx.clearRect(0, 0, 500, 690);
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.roadManager.createRoad();
-      this.preciousManager.createPrecious(dataGameAndLevel.loopStep);
+      this.preciousManager.createPrecious();
       this.carManager.createCar();
 
       this.timerId = window.requestAnimationFrame(this.gameLoop.bind(this), 50);

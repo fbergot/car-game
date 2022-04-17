@@ -4,8 +4,8 @@ class CarManager {
    constructor(carImage, ctx) {
       this.carImage = carImage;
       this.ctx = ctx;
-      this.x_carMin = 115;
-      this.x_carMax = 245;
+      this.x_carMin = 120;
+      this.x_carMax = 258;
       document.addEventListener("keydown", this.carMovements.bind(this), false);
    }
 

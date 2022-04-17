@@ -18,7 +18,7 @@ class DataOfGameManager extends LevelManager {
       this.#_life = 3;
       this.#_stepForScore = 10;
       this.#_loopStep = 8;
-      this.#_xCar = 115;
+      this.#_xCar = 120;
       this.#_xCar_length = 120;
       this.#_yCar = 620;
       this.#_yCar_length = 80;
