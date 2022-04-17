@@ -5,6 +5,7 @@ class DataOfGameManager extends LevelManager {
    #_life;
    #_stepForScore;
    #_loopStep;
+   #_xCar;
 
    constructor() {
       super();
@@ -12,6 +13,7 @@ class DataOfGameManager extends LevelManager {
       this.#_life = 3;
       this.#_stepForScore = 10;
       this.#_loopStep = 10;
+      this.#_xCar = 105;
    }
 
    get loopStep() {
@@ -38,6 +40,14 @@ class DataOfGameManager extends LevelManager {
    lifeDecrement() {
       this.#_life -= 1;
    }
+
+   get xCar() {
+      return this.#_xCar;
+   }
+
+   set xCar(newValue) {
+      this.#_xCar = newValue;
+   }
 }
 
-export default DataOfGameManager;
+export default new DataOfGameManager();
