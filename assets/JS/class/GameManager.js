@@ -1,6 +1,6 @@
 import CarManager from "./CarManager.js";
 import PreciousManager from "./PreciousManager.js";
-import dataGameAndLevelManager from "./DataOfGameManager.js";
+import dataGameAndLevel from "./DataOfGameManager.js";
 import RoadManager from "./RoadManager.js";
 
 class GameManager {
@@ -20,21 +20,19 @@ class GameManager {
          this.images.roads.road_2,
          this.ctx
       );
-      this.road_chunk_1_y = 0;
-      this.road_chunk_2_y = -690;
       this.timerId = null;
    }
 
    initGame() {
-      this.utils.insertInHTMLTarget(dataGameAndLevelManager.score, this.scoreTarget);
-      this.utils.insertInHTMLTarget(dataGameAndLevelManager.life, this.lifeTarget);
+      this.utils.insertInHTMLTarget(dataGameAndLevel.score, this.scoreTarget);
+      this.utils.insertInHTMLTarget(dataGameAndLevel.life, this.lifeTarget);
       this.onOff("on");
    }
 
    gameLoop() {
       this.ctx.clearRect(0, 0, 500, 690);
-      this.preciousManager.createPrecious(dataGameAndLevelManager.loopStep);
       this.roadManager.createRoad();
+      this.preciousManager.createPrecious(dataGameAndLevel.loopStep);
       this.carManager.createCar();
 
       this.timerId = window.requestAnimationFrame(this.gameLoop.bind(this), 50);
