@@ -1,5 +1,6 @@
 class LevelManager {
    #_currentLevelData;
+   #indexLevel;
    #_levelsData;
 
    constructor() {
@@ -26,13 +27,18 @@ class LevelManager {
             barriers: 20,
          },
       ];
-      this.#_currentLevelData = this.#_levelsData[0];
+      this.#indexLevel = 0;
+      this.#_currentLevelData = this.#_levelsData[this.#indexLevel];
    }
 
+   /**
+    * @param {number} score
+    */
    analyzeScoreToSetLevel(score) {
       this.#_levelsData.forEach((levelData, index) => {
          if (levelData.scoreTrigger === score) {
-            this.loopStep = levelData.loopStep;
+            this.#_currentLevelData = this.#_levelsData[++this.#indexLevel];
+            this.loopStep = this.#_currentLevelData.loopStep;
          }
       });
    }

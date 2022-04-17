@@ -26,11 +26,15 @@ class GameManager {
    initGame() {
       this.utils.insertInHTMLTarget(dataGameAndLevel.score, this.scoreTarget);
       this.utils.insertInHTMLTarget(dataGameAndLevel.life, this.lifeTarget);
-      this.onOff("on");
+      this.on();
    }
 
+   /**
+    * Recursive game loop
+    */
    gameLoop() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
       this.roadManager.createRoad();
       this.preciousManager.createPrecious();
       this.carManager.createCar();
@@ -38,17 +42,12 @@ class GameManager {
       this.timerId = window.requestAnimationFrame(this.gameLoop.bind(this), 50);
    }
 
-   onOff(switchState) {
-      switch (switchState) {
-         case "on":
-            this.gameLoop();
-            break;
-         case "off":
-            window.cancelAnimationFrame(this.timerId);
-            break;
-         default:
-            throw Error(`Bad switchState, given: ${swithState}`);
-      }
+   on() {
+      this.gameLoop();
+   }
+
+   off() {
+      window.cancelAnimationFrame(this.timerId);
    }
 }
 
