@@ -7,21 +7,21 @@ class LevelManager {
       this.#_levelsData = [
          {
             name: "Niveau 1",
-            scoreTrigger: 0,
-            loopStep: 15,
+            scoreTrigger: 5,
+            loopStep: 12,
             precious: 10,
             barriers: 10,
          },
          {
             name: "Niveau 2",
-            scoreTrigger: 5,
+            scoreTrigger: 16,
             loopStep: 20,
             precious: 15,
             barriers: 15,
          },
          {
             name: "Niveau 3",
-            scoreTrigger: 10,
+            scoreTrigger: 20,
             loopStep: 25,
             precious: 20,
             barriers: 20,
@@ -36,7 +36,7 @@ class LevelManager {
     */
    analyzeScoreToSetLevel(score) {
       this.#_levelsData.forEach((levelData, index) => {
-         if (levelData.scoreTrigger === score) {
+         if (levelData.scoreTrigger * this.stepForScore === score) {
             this.#_currentLevelData = this.#_levelsData[++this.#indexLevel];
             this.loopStep = this.#_currentLevelData.loopStep;
          }

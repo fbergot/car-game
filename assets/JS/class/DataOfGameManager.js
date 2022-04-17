@@ -2,11 +2,10 @@ import LevelManager from "./LevelManager.js";
 
 class DataOfGameManager extends LevelManager {
    #_score;
-   #_life;
    #_stepForScore;
-   // control speed of road
+   #_life;
+   /** @var #_loopStep: control speed of road */
    #_loopStep;
-   // data car
    #_xCar;
    #_xCar_length;
    #_yCar;
@@ -15,8 +14,8 @@ class DataOfGameManager extends LevelManager {
    constructor() {
       super();
       this.#_score = 0;
-      this.#_life = 3;
       this.#_stepForScore = 10;
+      this.#_life = 3;
       this.#_loopStep = 8;
       this.#_xCar = 120;
       this.#_xCar_length = 120;
@@ -24,19 +23,11 @@ class DataOfGameManager extends LevelManager {
       this.#_yCar_length = 80;
    }
 
-   get loopStep() {
-      return this.#_loopStep;
-   }
-
-   set loopStep(newloopStep) {
-      this.#_loopStep = newloopStep;
-   }
-
    get score() {
       return this.#_score;
    }
 
-   scoreIncAndAnalyzeDataLevel() {
+   scoreInc() {
       this.#_score += this.#_stepForScore;
       this.analyzeScoreToSetLevel(this.#_score);
    }
@@ -47,6 +38,18 @@ class DataOfGameManager extends LevelManager {
 
    lifeDecrement() {
       this.#_life -= 1;
+   }
+
+   get stepForScore() {
+      return this.#_stepForScore;
+   }
+
+   get loopStep() {
+      return this.#_loopStep;
+   }
+
+   set loopStep(newloopStep) {
+      this.#_loopStep = newloopStep;
    }
 
    get xCar() {

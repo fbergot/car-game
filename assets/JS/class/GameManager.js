@@ -5,8 +5,6 @@ import RoadManager from "./RoadManager.js";
 
 class GameManager {
    constructor(utils) {
-      this.scoreTarget = document.getElementById("score");
-      this.lifeTarget = document.getElementById("life");
       this.canvas = document.getElementById("canvas");
       this.ctx = this.canvas.getContext("2d");
       this.canvas.width = 500;
@@ -24,8 +22,8 @@ class GameManager {
    }
 
    initGame() {
-      this.utils.insertInHTMLTarget(dataGameAndLevel.score, this.scoreTarget);
-      this.utils.insertInHTMLTarget(dataGameAndLevel.life, this.lifeTarget);
+      this.utils.insertInHTMLTarget(dataGameAndLevel.score, "#score");
+      this.utils.insertInHTMLTarget(dataGameAndLevel.life, "#life");
       this.on();
    }
 

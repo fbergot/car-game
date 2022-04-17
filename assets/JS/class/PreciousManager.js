@@ -1,4 +1,5 @@
 import DataOfGameAndLevel from "./DataOfGameManager.js";
+import { insertInHTMLTarget } from "../utils.js";
 
 class PreciousManager {
    #preciousImg;
@@ -16,12 +17,16 @@ class PreciousManager {
       this.#_preciousPositions = [
          { x: 165, y: 400 },
          { x: 300, y: 50 },
+         { x: 165, y: -1500 },
+         { x: 300, y: -2000 },
+         { x: 165, y: -4000 },
+         { x: 300, y: -5000 },
       ];
       this.#alreadyGenerate = 0;
    }
 
    createPrecious() {
-      this.#_preciousPositions.forEach((precious, index) => {
+      this.#_preciousPositions.forEach((precious, index, arrayOfPrecious) => {
          precious.y += DataOfGameAndLevel.loopStep;
          this.#ctx.drawImage(
             this.#preciousImg,
@@ -30,21 +35,24 @@ class PreciousManager {
             this.#preciousX_length,
             this.#preciousY_length
          );
-         this.collisionDetection(precious, index);
+         this.collisionDetection(precious, index, arrayOfPrecious);
       });
    }
 
    /**
     * @param {{x: number, y: number}} precious
     */
-   collisionDetection(precious) {
+   collisionDetection(precious, index, arrayOfPrecious) {
       if (
          precious.x >= DataOfGameAndLevel.xCar &&
          precious.x <= DataOfGameAndLevel.xCar + DataOfGameAndLevel.xCar_length &&
          precious.y >= DataOfGameAndLevel.yCar &&
          precious.y <= DataOfGameAndLevel.yCar + DataOfGameAndLevel.yCar_length
       ) {
-         alert("ok");
+         arrayOfPrecious.splice(index, 1);
+         DataOfGameAndLevel.scoreInc();
+         insertInHTMLTarget(DataOfGameAndLevel.score, "#score");
+         console.log(arrayOfPrecious);
       }
    }
 
@@ -53,7 +61,9 @@ class PreciousManager {
     * @param {number[]} lRPositions
     * @memberof PreciousManager
     */
-   generateRandomPrecious(numberOfPrecious, lRPositions) {}
+   generateRandomPrecious(numberOfPrecious, lRPositions) {
+      this.#alreadyGenerate++;
+   }
 }
 
 export default PreciousManager;

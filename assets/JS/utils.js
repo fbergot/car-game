@@ -58,6 +58,43 @@ export const imagesBuilder = () => {
  * @param {string} text
  * @param {HTMLElement} target
  */
-export const insertInHTMLTarget = (text, target) => {
-   target.innerHTML = text;
+export const insertInHTMLTarget = (text, tagOfTarget) => {
+   document.querySelector(tagOfTarget).innerText = text;
+};
+
+/** ToDO ... */
+export const buildAlertWindow = (text, parentHTML) => {};
+
+export const buildLevelWindowAndCountBeforeStart = (level, parentHTML, startGame) => {
+   const divContainer = document.createElement("div");
+
+   function updateCount(count) {
+      divContainer.innerHTML = `
+         <div>
+            <h2>Niveau ${level} !!</h2>
+            <p>${count}</p>
+         </div>
+      `;
+      parentHTML.innerHTML = divContainer;
+   }
+
+   createCount(updateCount, startGame);
+};
+
+const createCount = (updateCount, startGame) => {
+   let count = 4;
+
+   function timeOutCount() {
+      count--;
+
+      if (count > 0) {
+         updateCount(count);
+         window.setTimeout(timeOutCount, 1000);
+      } else {
+         count = "GO !";
+         updateCount(count);
+         startGame();
+      }
+   }
+   timeOutCount();
 };
