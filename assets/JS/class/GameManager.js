@@ -24,6 +24,7 @@ class GameManager {
    initGame() {
       this.utils.insertInHTMLTarget(dataGameAndLevel.score, "#score");
       this.utils.insertInHTMLTarget(dataGameAndLevel.life, "#life");
+      this.preciousManager.generatePrecious();
       this.on();
    }
 

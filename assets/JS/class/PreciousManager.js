@@ -14,29 +14,25 @@ class PreciousManager {
       this.#ctx = ctx;
       this.#preciousX_length = 35;
       this.#preciousY_length = 35;
-      this.#_preciousPositions = [
-         { x: 165, y: 400 },
-         { x: 300, y: 50 },
-         { x: 165, y: -1500 },
-         { x: 300, y: -2000 },
-         { x: 165, y: -4000 },
-         { x: 300, y: -5000 },
-      ];
-      this.#alreadyGenerate = 0;
+      this.rangeX = [165, 300];
+      this.rangeY = [-1500, -10000];
+      this.prevY = 0;
    }
 
    createPrecious() {
-      this.#_preciousPositions.forEach((precious, index, arrayOfPrecious) => {
-         precious.y += DataOfGameAndLevel.loopStep;
-         this.#ctx.drawImage(
-            this.#preciousImg,
-            precious.x,
-            precious.y,
-            this.#preciousX_length,
-            this.#preciousY_length
-         );
-         this.collisionDetection(precious, index, arrayOfPrecious);
-      });
+      DataOfGameAndLevel.currentLevelData().precious.forEach(
+         (precious, index, arrayOfPrecious) => {
+            precious.y += DataOfGameAndLevel.loopStep;
+            this.#ctx.drawImage(
+               this.#preciousImg,
+               precious.x,
+               precious.y,
+               this.#preciousX_length,
+               this.#preciousY_length
+            );
+            this.collisionDetection(precious, index, arrayOfPrecious);
+         }
+      );
    }
 
    /**
@@ -52,7 +48,6 @@ class PreciousManager {
          arrayOfPrecious.splice(index, 1);
          DataOfGameAndLevel.scoreInc();
          insertInHTMLTarget(DataOfGameAndLevel.score, "#score");
-         console.log(arrayOfPrecious);
       }
    }
 
@@ -61,8 +56,39 @@ class PreciousManager {
     * @param {number[]} lRPositions
     * @memberof PreciousManager
     */
-   generateRandomPrecious(numberOfPrecious, lRPositions) {
-      this.#alreadyGenerate++;
+   generatePrecious() {
+      const precious = [
+         {
+            x: this.randomValue(this.rangeX),
+            y: -500,
+         },
+      ];
+      const dataLevel = DataOfGameAndLevel.currentLevelData();
+      let i;
+
+      for (i = 0; i < dataLevel.preciousNumber; i++) {
+         precious.push({
+            x: this.randomValue(this.rangeX),
+            y: this.randomInRange(this.rangeY[0], this.rangeY[1], precious),
+         });
+         this.#alreadyGenerate++;
+      }
+
+      dataLevel.precious = precious;
+   }
+
+   /**
+    *
+    *
+    * @param {*} min
+    * @param {*} max
+    */
+   randomInRange(min, max, precious) {
+      return Math.floor(Math.random() * (max - min) + min) + 800;
+   }
+
+   randomValue(values) {
+      return values[Math.floor(Math.random() + 0.5)];
    }
 }
 

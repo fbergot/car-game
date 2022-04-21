@@ -4,7 +4,7 @@ class DataOfGameManager extends LevelManager {
    #_score;
    #_stepForScore;
    #_life;
-   /** @var #_loopStep: control speed of road */
+   /** @var #_loopStep: control speed of road, barriers and precious.. */
    #_loopStep;
    #_xCar;
    #_xCar_length;

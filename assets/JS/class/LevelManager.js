@@ -1,51 +1,56 @@
 class LevelManager {
-   #_currentLevelData;
    #indexLevel;
-   #_levelsData;
+   #_currentLevelData;
 
    constructor() {
-      this.#_levelsData = [
+      this.levelsData = [
          {
             name: "Niveau 1",
-            scoreTrigger: 5,
-            loopStep: 12,
-            precious: 10,
+            scoreTrigger: 8,
+            preciousNumber: 20,
+            precious: [],
+            loopStep: 10,
             barriers: 10,
          },
          {
             name: "Niveau 2",
             scoreTrigger: 16,
+            preciousNumber: 15,
+            precious: [],
             loopStep: 20,
-            precious: 15,
             barriers: 15,
          },
          {
             name: "Niveau 3",
             scoreTrigger: 20,
+            preciousNumber: 15,
+            precious: [],
             loopStep: 25,
-            precious: 20,
             barriers: 20,
          },
       ];
       this.#indexLevel = 0;
-      this.#_currentLevelData = this.#_levelsData[this.#indexLevel];
+      this.#_currentLevelData = this.levelsData[this.#indexLevel];
    }
 
    /**
     * @param {number} score
     */
    analyzeScoreToSetLevel(score) {
-      this.#_levelsData.forEach((levelData, index) => {
+      console.log(this.#_currentLevelData.name);
+      this.levelsData.forEach((levelData, index) => {
          if (levelData.scoreTrigger * this.stepForScore === score) {
-            this.#_currentLevelData = this.#_levelsData[++this.#indexLevel];
+            this.#_currentLevelData = this.levelsData[++this.#indexLevel];
             this.loopStep = this.#_currentLevelData.loopStep;
          }
       });
    }
 
-   get currentLevelData() {
+   currentLevelData() {
       return this.#_currentLevelData;
    }
+
+   loadDataOfLevel() {}
 }
 
 export default LevelManager;
