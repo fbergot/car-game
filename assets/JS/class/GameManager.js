@@ -2,6 +2,7 @@ import CarManager from "./CarManager.js";
 import PreciousManager from "./PreciousManager.js";
 import dataGameAndLevel from "./DataOfGameManager.js";
 import RoadManager from "./RoadManager.js";
+import { insertInHTMLTarget } from "../utils.js";
 
 class GameManager {
    constructor(utils) {
@@ -12,7 +13,10 @@ class GameManager {
       this.utils = utils;
       this.images = this.utils.imagesBuilder();
       this.preciousManager = new PreciousManager(this.images.precious.precious_1, this.ctx);
-      this.carManager = new CarManager(this.images.cars.red_car, this.ctx);
+      this.preciousManager.update = this.carManager = new CarManager(
+         this.images.cars.red_car,
+         this.ctx
+      );
       this.roadManager = new RoadManager(
          this.images.roads.road_1,
          this.images.roads.road_2,
@@ -27,6 +31,7 @@ class GameManager {
       dataGameAndLevel.loadDataOfLevel(
          this.preciousManager.generatePrecious.bind(this.preciousManager)
       );
+      dataGameAndLevel.generateRandomPrecious();
       this.on();
    }
 
@@ -49,6 +54,11 @@ class GameManager {
 
    off() {
       window.cancelAnimationFrame(this.timerId);
+   }
+
+   update() {
+      dataGameAndLevel.scoreInc();
+      insertInHTMLTarget(dataGameAndLevel.score, "#score");
    }
 }
 

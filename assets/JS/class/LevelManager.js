@@ -6,7 +6,7 @@ class LevelManager {
       this.levelsData = [
          {
             name: "Niveau 1",
-            preciousNumber: 20,
+            preciousNumber: 15,
             scoreTrigger: 100,
             precious: [],
             loopStep: 10,
@@ -15,33 +15,50 @@ class LevelManager {
          {
             name: "Niveau 2",
             preciousNumber: 15,
-            scoreTrigger: 200,
+            scoreTrigger: 150,
             precious: [],
-            loopStep: 15,
+            loopStep: 14,
             barriers: 15,
          },
          {
             name: "Niveau 3",
             preciousNumber: 15,
-            scoreTrigger: 300,
+            scoreTrigger: 200,
             precious: [],
-            loopStep: 20,
+            loopStep: 18,
+            barriers: 20,
+         },
+         {
+            name: "Niveau 4",
+            preciousNumber: 15,
+            scoreTrigger: 250,
+            precious: [],
+            loopStep: 22,
+            barriers: 20,
+         },
+         {
+            name: "Niveau 5",
+            preciousNumber: 15,
+            scoreTrigger: 350,
+            precious: [],
+            loopStep: 26,
             barriers: 20,
          },
       ];
       this.#indexLevel = 0;
       this.#_currentLevelData = this.levelsData[this.#indexLevel];
+      this.generateRandomPrecious;
    }
 
    /**
     * @param {number} score
     */
    analyzeScoreToSetLevel(score) {
-      console.log(score, this.stepForScore, this.levelsData[0].scoreTrigger);
       this.levelsData.forEach((levelData, index) => {
          if (levelData.scoreTrigger === score) {
             this.#_currentLevelData = this.levelsData[++this.#indexLevel];
             this.loopStep = this.#_currentLevelData.loopStep;
+            this.generateRandomPrecious();
          }
       });
    }
@@ -54,7 +71,7 @@ class LevelManager {
     * @param {() => void} generateFunction
     */
    loadDataOfLevel(generateFunction) {
-      generateFunction();
+      this.generateRandomPrecious = generateFunction;
    }
 
    controlLevelInProgress() {}

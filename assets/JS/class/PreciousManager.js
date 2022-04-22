@@ -37,51 +37,58 @@ class PreciousManager {
    /**
     * @param {{x: number, y: number}} precious
     */
-   collisionDetection(precious, index, arrayOfPrecious) {
+   collisionDetection(object, index, arrayOfObjects) {
       if (
-         precious.x >= DataOfGameAndLevel.xCar &&
-         precious.x <= DataOfGameAndLevel.xCar + DataOfGameAndLevel.xCar_length &&
-         precious.y >= DataOfGameAndLevel.yCar &&
-         precious.y <= DataOfGameAndLevel.yCar + DataOfGameAndLevel.yCar_length
+         object.x >= DataOfGameAndLevel.xCar &&
+         object.x <= DataOfGameAndLevel.xCar + DataOfGameAndLevel.xCar_length &&
+         object.y >= DataOfGameAndLevel.yCar &&
+         object.y <= DataOfGameAndLevel.yCar + DataOfGameAndLevel.yCar_length
       ) {
-         arrayOfPrecious.splice(index, 1);
+         arrayOfObjects.splice(index, 1);
          DataOfGameAndLevel.scoreInc();
          insertInHTMLTarget(DataOfGameAndLevel.score, "#score");
       }
    }
 
    generatePrecious() {
+      this.prevYInterval = -400;
+
+      let i;
+      const dataLevel = DataOfGameAndLevel.currentLevelData();
       const precious = [
          {
             x: this.choiceValueLeftOrRight_X(this.rangeX),
-            y: -500,
+            y: -600,
          },
       ];
-      const dataLevel = DataOfGameAndLevel.currentLevelData();
-      let i;
 
       for (i = 0; i < dataLevel.preciousNumber; i++) {
          precious.push({
             x: this.choiceValueLeftOrRight_X(this.rangeX),
-            y: this.randomInRange(this.rangeY[0], this.rangeY[1], precious),
+            y: this.randomInRange(this.rangeY[0], this.rangeY[1]),
          });
          this.#alreadyGenerate++;
       }
+
       dataLevel.precious = precious;
    }
 
    /**
+    * Create Y random coord for all precious
     * @param {number} min
     * @param {number} max
+    * @returns {number}
     */
-   randomInRange(min, max, precious) {
+   randomInRange(min, max) {
       this.prevYInterval -= -400;
+
       return Math.floor(
          Math.random() * (max - this.prevYInterval - min) + (min - this.prevYInterval)
       );
    }
 
    /**
+    * Create X coord for all precious (choice between [165, 300])
     * @param {*} values
     * @returns {number}
     */
