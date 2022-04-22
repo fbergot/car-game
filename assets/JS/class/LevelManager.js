@@ -6,26 +6,26 @@ class LevelManager {
       this.levelsData = [
          {
             name: "Niveau 1",
-            scoreTrigger: 8,
             preciousNumber: 20,
+            scoreTrigger: this.preciousNumber * this.stepForScore - 50,
             precious: [],
             loopStep: 10,
             barriers: 10,
          },
          {
             name: "Niveau 2",
-            scoreTrigger: 16,
             preciousNumber: 15,
+            scoreTrigger: this.preciousNumber * this.stepForScore - 50,
             precious: [],
-            loopStep: 20,
+            loopStep: 15,
             barriers: 15,
          },
          {
             name: "Niveau 3",
-            scoreTrigger: 20,
             preciousNumber: 15,
+            scoreTrigger: this.preciousNumber * this.stepForScore - 50,
             precious: [],
-            loopStep: 25,
+            loopStep: 20,
             barriers: 20,
          },
       ];
@@ -50,7 +50,14 @@ class LevelManager {
       return this.#_currentLevelData;
    }
 
-   loadDataOfLevel() {}
+   /**
+    * @param {() => void} generateFunction
+    */
+   loadDataOfLevel(generateFunction) {
+      generateFunction();
+   }
+
+   controlLevelInProgress() {}
 }
 
 export default LevelManager;

@@ -4,7 +4,6 @@ import { insertInHTMLTarget } from "../utils.js";
 class PreciousManager {
    #preciousImg;
    #ctx;
-   #_preciousPositions;
    #preciousX_length;
    #preciousY_length;
    #alreadyGenerate;
@@ -16,12 +15,17 @@ class PreciousManager {
       this.#preciousY_length = 35;
       this.rangeX = [165, 300];
       this.rangeY = [-1500, -10000];
-      this.prevY = 0;
+      this.prevYInterval = 0;
    }
 
    createPrecious() {
       DataOfGameAndLevel.currentLevelData().precious.forEach(
          (precious, index, arrayOfPrecious) => {
+            console.log(
+               "🚀 ~ file: PreciousManager.js ~ line 24 ~ PreciousManager ~ createPrecious ~ arrayOfPrecious",
+               arrayOfPrecious.length
+            );
+            this.collisionDetection(precious, index, arrayOfPrecious);
             precious.y += DataOfGameAndLevel.loopStep;
             this.#ctx.drawImage(
                this.#preciousImg,
@@ -30,7 +34,6 @@ class PreciousManager {
                this.#preciousX_length,
                this.#preciousY_length
             );
-            this.collisionDetection(precious, index, arrayOfPrecious);
          }
       );
    }
@@ -51,15 +54,10 @@ class PreciousManager {
       }
    }
 
-   /**
-    * @param {number} numberOfPrecious
-    * @param {number[]} lRPositions
-    * @memberof PreciousManager
-    */
    generatePrecious() {
       const precious = [
          {
-            x: this.randomValue(this.rangeX),
+            x: this.choiceValueLeftOrRight_X(this.rangeX),
             y: -500,
          },
       ];
@@ -68,26 +66,31 @@ class PreciousManager {
 
       for (i = 0; i < dataLevel.preciousNumber; i++) {
          precious.push({
-            x: this.randomValue(this.rangeX),
+            x: this.choiceValueLeftOrRight_X(this.rangeX),
             y: this.randomInRange(this.rangeY[0], this.rangeY[1], precious),
          });
          this.#alreadyGenerate++;
       }
-
       dataLevel.precious = precious;
+      console.log(precious);
    }
 
    /**
-    *
-    *
-    * @param {*} min
-    * @param {*} max
+    * @param {number} min
+    * @param {number} max
     */
    randomInRange(min, max, precious) {
-      return Math.floor(Math.random() * (max - min) + min) + 800;
+      this.prevYInterval -= -400;
+      return Math.floor(
+         Math.random() * (max - this.prevYInterval - min) + (min - this.prevYInterval)
+      );
    }
 
-   randomValue(values) {
+   /**
+    * @param {*} values
+    * @returns {number}
+    */
+   choiceValueLeftOrRight_X(values) {
       return values[Math.floor(Math.random() + 0.5)];
    }
 }
