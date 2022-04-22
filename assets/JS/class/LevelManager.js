@@ -7,7 +7,7 @@ class LevelManager {
          {
             name: "Niveau 1",
             preciousNumber: 20,
-            scoreTrigger: this.preciousNumber * this.stepForScore - 50,
+            scoreTrigger: 100,
             precious: [],
             loopStep: 10,
             barriers: 10,
@@ -15,7 +15,7 @@ class LevelManager {
          {
             name: "Niveau 2",
             preciousNumber: 15,
-            scoreTrigger: this.preciousNumber * this.stepForScore - 50,
+            scoreTrigger: 200,
             precious: [],
             loopStep: 15,
             barriers: 15,
@@ -23,7 +23,7 @@ class LevelManager {
          {
             name: "Niveau 3",
             preciousNumber: 15,
-            scoreTrigger: this.preciousNumber * this.stepForScore - 50,
+            scoreTrigger: 300,
             precious: [],
             loopStep: 20,
             barriers: 20,
@@ -37,9 +37,9 @@ class LevelManager {
     * @param {number} score
     */
    analyzeScoreToSetLevel(score) {
-      console.log(this.#_currentLevelData.name);
+      console.log(score, this.stepForScore, this.levelsData[0].scoreTrigger);
       this.levelsData.forEach((levelData, index) => {
-         if (levelData.scoreTrigger * this.stepForScore === score) {
+         if (levelData.scoreTrigger === score) {
             this.#_currentLevelData = this.levelsData[++this.#indexLevel];
             this.loopStep = this.#_currentLevelData.loopStep;
          }

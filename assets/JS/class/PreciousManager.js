@@ -21,10 +21,6 @@ class PreciousManager {
    createPrecious() {
       DataOfGameAndLevel.currentLevelData().precious.forEach(
          (precious, index, arrayOfPrecious) => {
-            console.log(
-               "🚀 ~ file: PreciousManager.js ~ line 24 ~ PreciousManager ~ createPrecious ~ arrayOfPrecious",
-               arrayOfPrecious.length
-            );
             this.collisionDetection(precious, index, arrayOfPrecious);
             precious.y += DataOfGameAndLevel.loopStep;
             this.#ctx.drawImage(
@@ -72,7 +68,6 @@ class PreciousManager {
          this.#alreadyGenerate++;
       }
       dataLevel.precious = precious;
-      console.log(precious);
    }
 
    /**
