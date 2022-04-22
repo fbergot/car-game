@@ -1,3 +1,4 @@
+import ControlAndUpdateData from "./ControlAndUpdateData.js";
 import DataGameAndLevelManager from "./DataOfGameManager.js";
 
 class RoadManager {
@@ -14,7 +15,10 @@ class RoadManager {
       this.road_chunk_2_y += DataGameAndLevelManager.loopStep;
 
       if (this.road_chunk_1_y >= 690) this.road_chunk_1_y -= 2 * 690;
-      if (this.road_chunk_2_y >= 690) this.road_chunk_2_y -= 2 * 690;
+      if (this.road_chunk_2_y >= 690) {
+         this.road_chunk_2_y -= 2 * 690;
+         ControlAndUpdateData.control();
+      }
 
       this.ctx.drawImage(this.road1, 0, this.road_chunk_1_y);
       this.ctx.drawImage(this.road2, 0, this.road_chunk_2_y);

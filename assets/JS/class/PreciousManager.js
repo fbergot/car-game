@@ -6,7 +6,6 @@ class PreciousManager {
    #ctx;
    #preciousX_length;
    #preciousY_length;
-   #alreadyGenerate;
 
    constructor(preciousImg, ctx) {
       this.#preciousImg = preciousImg;
@@ -30,6 +29,10 @@ class PreciousManager {
                this.#preciousX_length,
                this.#preciousY_length
             );
+            if (precious.y > 690) {
+               DataOfGameAndLevel.nbPreciousCreated += 1;
+               arrayOfPrecious.splice(index, 1);
+            }
          }
       );
    }
@@ -67,14 +70,12 @@ class PreciousManager {
             x: this.choiceValueLeftOrRight_X(this.rangeX),
             y: this.randomInRange(this.rangeY[0], this.rangeY[1]),
          });
-         this.#alreadyGenerate++;
       }
 
       dataLevel.precious = precious;
    }
 
    /**
-    * Create Y random coord for all precious
     * @param {number} min
     * @param {number} max
     * @returns {number}
@@ -88,7 +89,7 @@ class PreciousManager {
    }
 
    /**
-    * Create X coord for all precious (choice between [165, 300])
+    * Create X coord for all precious (choices: [165, 300])
     * @param {*} values
     * @returns {number}
     */

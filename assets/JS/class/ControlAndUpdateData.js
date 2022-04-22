@@ -1,7 +1,21 @@
-class ControlAndUpdateData {
-   constructor() {}
+import DataOfGameManager from "./DataOfGameManager.js";
+import * as utils from "../utils.js";
+import Observer from "./observer/Observer.js";
 
-   control() {}
+class ControlAndUpdateData {
+   constructor() {
+      this.countRoadLoop = 0;
+   }
+
+   control() {
+      if (
+         DataOfGameManager.nbPreciousCreated + DataOfGameManager.score / 10 ==
+            DataOfGameManager.currentLevelData().preciousNumber &&
+         DataOfGameManager.score < DataOfGameManager.currentLevelData().scoreTrigger
+      ) {
+         Observer.trigger("off");
+      }
+   }
 }
 
-export default ControlAndUpdateData;
+export default new ControlAndUpdateData();

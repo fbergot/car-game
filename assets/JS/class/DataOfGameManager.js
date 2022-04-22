@@ -9,17 +9,20 @@ class DataOfGameManager extends LevelManager {
    #_xCar_length;
    #_yCar;
    #_yCar_length;
+   #_nbPreciousCreated;
 
    constructor() {
       super();
       this.#_score = 0;
       this._stepForScore = 10;
       this.#_life = 3;
-      this.#_loopStep = 8;
+      this.#_loopStep = this.#_loopStep || this.currentLevelData().loopStep;
       this.#_xCar = 120;
       this.#_xCar_length = 120;
       this.#_yCar = 620;
       this.#_yCar_length = 80;
+      this.#_nbPreciousCreated = 0;
+      this.timerId = 0;
    }
 
    get score() {
@@ -69,6 +72,14 @@ class DataOfGameManager extends LevelManager {
 
    get yCar_length() {
       return this.#_yCar_length;
+   }
+
+   get nbPreciousCreated() {
+      return this.#_nbPreciousCreated;
+   }
+
+   set nbPreciousCreated(value) {
+      return (this.#_nbPreciousCreated = value);
    }
 }
 

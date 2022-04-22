@@ -1,3 +1,5 @@
+import ControlAndUpdateData from "./ControlAndUpdateData.js";
+
 class LevelManager {
    #indexLevel;
    #_currentLevelData;
@@ -5,7 +7,7 @@ class LevelManager {
    constructor() {
       this.levelsData = [
          {
-            name: "Niveau 1",
+            name: 1,
             preciousNumber: 15,
             scoreTrigger: 100,
             precious: [],
@@ -13,7 +15,7 @@ class LevelManager {
             barriers: 10,
          },
          {
-            name: "Niveau 2",
+            name: 2,
             preciousNumber: 15,
             scoreTrigger: 150,
             precious: [],
@@ -21,7 +23,7 @@ class LevelManager {
             barriers: 15,
          },
          {
-            name: "Niveau 3",
+            name: 3,
             preciousNumber: 15,
             scoreTrigger: 200,
             precious: [],
@@ -29,7 +31,7 @@ class LevelManager {
             barriers: 20,
          },
          {
-            name: "Niveau 4",
+            name: 4,
             preciousNumber: 15,
             scoreTrigger: 250,
             precious: [],
@@ -37,9 +39,9 @@ class LevelManager {
             barriers: 20,
          },
          {
-            name: "Niveau 5",
+            name: 5,
             preciousNumber: 15,
-            scoreTrigger: 350,
+            scoreTrigger: 300,
             precious: [],
             loopStep: 26,
             barriers: 20,
@@ -54,11 +56,17 @@ class LevelManager {
     * @param {number} score
     */
    analyzeScoreToSetLevel(score) {
-      this.levelsData.forEach((levelData, index) => {
+      this.levelsData.forEach((levelData, index, sourceArray) => {
          if (levelData.scoreTrigger === score) {
-            this.#_currentLevelData = this.levelsData[++this.#indexLevel];
-            this.loopStep = this.#_currentLevelData.loopStep;
-            this.generateRandomPrecious();
+            if (this.#indexLevel < sourceArray.length - 1) {
+               this.#indexLevel++;
+               this.#_currentLevelData = this.levelsData[this.#indexLevel];
+               this.loopStep = this.#_currentLevelData.loopStep;
+               levelData.preciousNumber -= 1;
+               this.generateRandomPrecious();
+               return;
+            }
+            alert("bien joué !");
          }
       });
    }

@@ -3,6 +3,9 @@ import PreciousManager from "./PreciousManager.js";
 import dataGameAndLevel from "./DataOfGameManager.js";
 import RoadManager from "./RoadManager.js";
 import { insertInHTMLTarget } from "../utils.js";
+import ControlAndUpdateData from "./ControlAndUpdateData.js";
+import Observer from "./observer/Observer.js";
+import DataOfGameManager from "./DataOfGameManager.js";
 
 class GameManager {
    constructor(utils) {
@@ -22,7 +25,7 @@ class GameManager {
          this.images.roads.road_2,
          this.ctx
       );
-      this.timerId = null;
+      this.end = false;
    }
 
    initGame() {
@@ -32,7 +35,16 @@ class GameManager {
          this.preciousManager.generatePrecious.bind(this.preciousManager)
       );
       dataGameAndLevel.generateRandomPrecious();
-      this.on();
+
+      Observer.subscribe(() => {
+         this.on();
+      }, "on");
+
+      Observer.subscribe(() => {
+         this.off.bind(this)();
+      }, "off");
+
+      Observer.trigger("on");
    }
 
    /**
@@ -40,12 +52,13 @@ class GameManager {
     */
    gameLoop() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
       this.roadManager.createRoad();
       this.preciousManager.createPrecious();
       this.carManager.createCar();
+      ControlAndUpdateData.control();
 
-      this.timerId = window.requestAnimationFrame(this.gameLoop.bind(this), 50);
+      if (this.end) return;
+      window.requestAnimationFrame(() => this.gameLoop());
    }
 
    on() {
@@ -53,7 +66,7 @@ class GameManager {
    }
 
    off() {
-      window.cancelAnimationFrame(this.timerId);
+      this.end = true;
    }
 
    update() {
