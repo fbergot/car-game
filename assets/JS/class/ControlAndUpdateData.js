@@ -14,6 +14,7 @@ class ControlAndUpdateData {
          DataOfGameManager.score < DataOfGameManager.currentLevelData().scoreTrigger
       ) {
          Observer.trigger("off");
+         alert("Perdu !");
       }
    }
 }

@@ -11,9 +11,13 @@ class Observer {
    }
 
    trigger(type) {
-      if (this.observers[type].length != 0) {
-         this.observers[type][0]();
+      if (this.observers[type].length) {
+         this.observers[type].forEach((func) => {
+            func();
+         });
+         return;
       }
+      throw Error("No callback registered");
    }
 }
 
