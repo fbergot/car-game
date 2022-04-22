@@ -4,12 +4,13 @@
 
 html {
    height: 100vh;
-   background-color: rgb(247, 243, 243);
+   background-color: rgb(103, 124, 107);
 }
 
 h1 {
    text-align: center;
-   font-weight: 400;
+   font-weight: 600;
+   letter-spacing: 5px;
 }
 
 header {
@@ -17,24 +18,105 @@ header {
    justify-content: center;
 }
 .container-game-data {
-   margin-top: 0.8rem;
+   margin: 0.3rem 0 0.9rem 0;
    display: flex;
    width: 500px;
    justify-content: space-around;
-   /* border: 1px solid red; */
+   border: 5px solid rgb(250, 228, 103);
+   border-radius: 6px;
 }
 
 .score,
 .life {
-   font-size: 1.1rem;
+   font-size: 1.5rem;
+   color: #fff;
+   letter-spacing: 5px;
+   padding: 5px;
+   margin: 0;
 }
 
 .container-canvas {
    display: flex;
    justify-content: center;
-   margin-top: 0.5rem;
+   /* margin-top: 0.5rem; */
+   position: relative;
 }
 
 .canvas {
-   border: 1px solid gray;
+   border: 5px solid rgb(250, 228, 103);
+}
+
+.rebound {
+   animation: forwards 3s 1 rebound;
+   position: absolute;
+   top: 30%;
+   left: 0;
+   right: 0;
+   background-color: rgb(173, 180, 180);
+}
+
+.norebound {
+   position: absolute;
+   top: 30%;
+   left: 10%;
+   right: 10%;
+   border: 3px solid;
+   background-color: linear-gradient(rgb(84, 84, 133), rgb(131, 131, 230), rgb(87, 150, 223));
+}
+
+.window {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 2rem;
+
+   background: linear-gradient(rgb(112, 150, 206), rgb(131, 131, 230), rgb(53, 211, 211));
+}
+.window p {
+   text-align: center;
+   font-size: 0.9rem;
+}
+h2 {
+   font-size: 2rem;
+   font-weight: 600;
+   text-align: center;
+   font-family: "Roboto";
+}
+
+.h1-count {
+   animation: forwards 0.5s 1.3s h1;
+   font-size: 2rem;
+   border: 5px solid rgb(30, 89, 167);
+   border-radius: 50%;
+   padding: 1rem 1.5rem;
+   color: #fff;
+   font-weight: bold;
+   background: linear-gradient(rgb(84, 84, 133), rgb(10, 10, 192), rgb(74, 241, 219));
+}
+
+@keyframes h1 {
+   0% {
+      opacity: 0;
+      transform: scale(0.05);
+   }
+
+   100% {
+      opacity: 1;
+      transform: scale(0.55);
+   }
+}
+
+@keyframes rebound {
+   0% {
+      opacity: 1;
+   }
+
+   100% {
+      opacity: 0;
+      transform: rotate(720deg);
+      display: none;
+      left: 35%;
+      right: 35%;
+      top: 35%;
+   }
 }

@@ -1,5 +1,5 @@
-import ControlAndUpdateData from "./ControlAndUpdateData.js";
-import DataGameAndLevelManager from "./DataOfGameManager.js";
+import Factory from "./factory/Factory.js";
+import { dataOfGameManager as DGLM } from "./DataOfGameManager.js";
 
 class RoadManager {
    constructor(road1, road2, ctx) {
@@ -8,16 +8,20 @@ class RoadManager {
       this.ctx = ctx;
       this.road_chunk_1_y = 0;
       this.road_chunk_2_y = -690;
+      this.controlAndUpdateData = new Factory("control", {});
    }
 
    createRoad() {
-      this.road_chunk_1_y += DataGameAndLevelManager.loopStep;
-      this.road_chunk_2_y += DataGameAndLevelManager.loopStep;
+      this.road_chunk_1_y += DGLM.loopStep;
+      this.road_chunk_2_y += DGLM.loopStep;
 
-      if (this.road_chunk_1_y >= 690) this.road_chunk_1_y -= 2 * 690;
-      if (this.road_chunk_2_y >= 690) {
-         this.road_chunk_2_y -= 2 * 690;
-         ControlAndUpdateData.control();
+      switch (true) {
+         case this.road_chunk_1_y >= 690:
+            this.road_chunk_1_y -= 2 * 690;
+            break;
+         case this.road_chunk_2_y >= 690:
+            this.road_chunk_2_y -= 2 * 690;
+            this.controlAndUpdateData.control();
       }
 
       this.ctx.drawImage(this.road1, 0, this.road_chunk_1_y);

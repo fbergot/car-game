@@ -1,4 +1,4 @@
-import DataOfGameAndLevel from "./DataOfGameManager.js";
+import { dataOfGameManager as DGLM } from "./DataOfGameManager.js";
 import { insertInHTMLTarget } from "../utils.js";
 
 class PreciousManager {
@@ -18,46 +18,47 @@ class PreciousManager {
    }
 
    createPrecious() {
-      DataOfGameAndLevel.currentLevelData().precious.forEach(
-         (precious, index, arrayOfPrecious) => {
-            this.collisionDetection(precious, index, arrayOfPrecious);
-            precious.y += DataOfGameAndLevel.loopStep;
-            this.#ctx.drawImage(
-               this.#preciousImg,
-               precious.x,
-               precious.y,
-               this.#preciousX_length,
-               this.#preciousY_length
-            );
-            if (precious.y > 690) {
-               DataOfGameAndLevel.nbPreciousCreated += 1;
-               arrayOfPrecious.splice(index, 1);
-            }
+      DGLM.currentLevelData().precious.forEach((precious, index, arrayOfPrecious) => {
+         this.collisionDetection(precious, function () {
+            arrayOfPrecious.splice(index, 1);
+            DGLM.scoreInc();
+            insertInHTMLTarget(DGLM.score, "#score");
+         });
+         precious.y += DGLM.loopStep;
+         this.#ctx.drawImage(
+            this.#preciousImg,
+            precious.x,
+            precious.y,
+            this.#preciousX_length,
+            this.#preciousY_length
+         );
+         if (precious.y > 690) {
+            DGLM.nbPreciousCreated += 1;
+            arrayOfPrecious.splice(index, 1);
          }
-      );
+      });
    }
-
    /**
-    * @param {{x: number, y: number}} precious
+    * @param {{}} object
+    * @param {number} index
+    * @param {{}[]} arrayOfObjects
     */
-   collisionDetection(object, index, arrayOfObjects) {
+   collisionDetection(object, funcForUpdate) {
       if (
-         object.x >= DataOfGameAndLevel.xCar &&
-         object.x <= DataOfGameAndLevel.xCar + DataOfGameAndLevel.xCar_length &&
-         object.y >= DataOfGameAndLevel.yCar &&
-         object.y <= DataOfGameAndLevel.yCar + DataOfGameAndLevel.yCar_length
+         object.x >= DGLM.xCar &&
+         object.x <= DGLM.xCar + DGLM.xCar_length &&
+         object.y >= DGLM.yCar &&
+         object.y <= DGLM.yCar + DGLM.yCar_length
       ) {
-         arrayOfObjects.splice(index, 1);
-         DataOfGameAndLevel.scoreInc();
-         insertInHTMLTarget(DataOfGameAndLevel.score, "#score");
+         funcForUpdate();
       }
    }
 
    generatePrecious() {
       this.prevYInterval = -400;
-
       let i;
-      const dataLevel = DataOfGameAndLevel.currentLevelData();
+
+      const dataLevel = DGLM.currentLevelData();
       const precious = [
          {
             x: this.choiceValueLeftOrRight_X(this.rangeX),

@@ -83,4 +83,4 @@ class DataOfGameManager extends LevelManager {
    }
 }
 
-export default new DataOfGameManager();
+export const dataOfGameManager = new DataOfGameManager();

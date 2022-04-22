@@ -1,9 +1,14 @@
+import { dataOfGameManager as DGLM } from "./DataOfGameManager.js";
+import { insertInHTMLTarget } from "../utils.js";
+
 // TODO
 class BarriersManager {
-   #_barriersPosition;
+   #rockImg;
+   #ctx;
 
-   constructor() {
-      this.#_barriersPosition = [];
+   constructor(rockImg, ctx) {
+      this.#rockImg = rockImg;
+      this.#ctx = ctx;
    }
 }
 

@@ -1,11 +1,15 @@
 import CarManager from "./CarManager.js";
 import PreciousManager from "./PreciousManager.js";
-import dataGameAndLevel from "./DataOfGameManager.js";
+import { dataOfGameManager as DGLM } from "./DataOfGameManager.js";
 import RoadManager from "./RoadManager.js";
-import { insertInHTMLTarget } from "../utils.js";
+import {
+   insertInHTMLTarget,
+   buildLevelWindowAndCountBeforeStart as winCount,
+} from "../utils.js";
 import ControlAndUpdateData from "./ControlAndUpdateData.js";
 import Observer from "./observer/Observer.js";
-import DataOfGameManager from "./DataOfGameManager.js";
+import BarriersManager from "./BarriersManager.js";
+import Factory from "./factory/Factory.js";
 
 class GameManager {
    constructor(utils) {
@@ -15,36 +19,42 @@ class GameManager {
       this.canvas.height = 690;
       this.utils = utils;
       this.images = this.utils.imagesBuilder();
-      this.preciousManager = new PreciousManager(this.images.precious.precious_1, this.ctx);
-      this.preciousManager.update = this.carManager = new CarManager(
-         this.images.cars.red_car,
-         this.ctx
-      );
-      this.roadManager = new RoadManager(
-         this.images.roads.road_1,
-         this.images.roads.road_2,
-         this.ctx
-      );
+      this.controlAndUpdateData = new Factory("control", {});
+      this.observer = new Factory("observer", {});
+      this.preciousManager = new Factory("precious", {
+         img: this.images.precious.precious_1,
+         ctx: this.ctx,
+      });
+      this.carManager = new Factory("car", { img: this.images.cars.red_car, ctx: this.ctx });
+      this.barriersManager = new Factory("barrier", {
+         img: this.images.barriers.rocks.rocks_1,
+         ctx: this.ctx,
+      });
+      this.roadManager = new Factory("road", {
+         img1: this.images.roads.road_1,
+         img2: this.images.roads.road_2,
+         ctx: this.ctx,
+      });
       this.end = false;
    }
 
    initGame() {
-      this.utils.insertInHTMLTarget(dataGameAndLevel.score, "#score");
-      this.utils.insertInHTMLTarget(dataGameAndLevel.life, "#life");
-      dataGameAndLevel.loadDataOfLevel(
-         this.preciousManager.generatePrecious.bind(this.preciousManager)
-      );
-      dataGameAndLevel.generateRandomPrecious();
+      this.utils.insertInHTMLTarget(DGLM.score, "#score");
+      this.utils.insertInHTMLTarget(DGLM.life, "#life");
+      DGLM.loadDataOfLevel(this.preciousManager.generatePrecious.bind(this.preciousManager));
+      DGLM.generateRandomPrecious();
 
-      Observer.subscribe(() => {
+      this.observer.subscribe(() => {
          this.on();
       }, "on");
 
-      Observer.subscribe(() => {
-         this.off.bind(this)();
+      this.observer.subscribe(() => {
+         this.off();
       }, "off");
 
-      Observer.trigger("on");
+      winCount(3, document.querySelector(".container-canvas"), () => {
+         this.observer.trigger("on");
+      });
    }
 
    /**
@@ -55,10 +65,10 @@ class GameManager {
       this.roadManager.createRoad();
       this.preciousManager.createPrecious();
       this.carManager.createCar();
-      ControlAndUpdateData.control();
+      // this.controlAndUpdateData.control();
 
       if (this.end) return;
-      window.requestAnimationFrame(() => this.gameLoop());
+      window.requestAnimationFrame(this.gameLoop.bind(this));
    }
 
    on() {
@@ -67,11 +77,6 @@ class GameManager {
 
    off() {
       this.end = true;
-   }
-
-   update() {
-      dataGameAndLevel.scoreInc();
-      insertInHTMLTarget(dataGameAndLevel.score, "#score");
    }
 }
 

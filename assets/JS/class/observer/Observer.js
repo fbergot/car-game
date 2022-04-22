@@ -3,22 +3,29 @@ class Observer {
       this.observers = {
          on: [],
          off: [],
+         generatePrecious: [],
       };
    }
 
+   /**
+    * @param {() => void} func
+    * @param {string} type
+    */
    subscribe(func, type) {
       this.observers[type].push(func);
    }
 
+   /**
+    * @param {string} type
+    */
    trigger(type) {
-      if (this.observers[type].length) {
+      console.log(type);
+      if (type in this.observers) {
          this.observers[type].forEach((func) => {
             func();
          });
-         return;
       }
-      throw Error("No callback registered");
    }
 }
 
-export default new Observer();
+export default Observer;

@@ -70,12 +70,14 @@ export const buildLevelWindowAndCountBeforeStart = (level, parentHTML, startGame
 
    function updateCount(count) {
       divContainer.innerHTML = `
-         <div>
-            <h2>Niveau ${level} !!</h2>
-            <p>${count}</p>
+         <div class='${count == "GO !" ? "rebound" : "norebound"} window'>
+            <center>
+               <h1 class='h1-count'>${count}</h1>
+               <p>Niveau ${level} !!</p>
+            </center>
          </div>
       `;
-      parentHTML.innerHTML = divContainer;
+      parentHTML.appendChild(divContainer);
    }
 
    createCount(updateCount, startGame);
@@ -89,7 +91,7 @@ const createCount = (updateCount, startGame) => {
 
       if (count > 0) {
          updateCount(count);
-         window.setTimeout(timeOutCount, 1000);
+         window.setTimeout(timeOutCount, 1500);
       } else {
          count = "GO !";
          updateCount(count);

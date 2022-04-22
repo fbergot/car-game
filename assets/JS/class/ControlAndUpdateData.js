@@ -1,22 +1,22 @@
-import DataOfGameManager from "./DataOfGameManager.js";
+import { dataOfGameManager as DGLM } from "./DataOfGameManager.js";
 import * as utils from "../utils.js";
-import Observer from "./observer/Observer.js";
+import Factory from "./factory/Factory.js";
 
 class ControlAndUpdateData {
    constructor() {
+      this.observer = new Factory("observer");
       this.countRoadLoop = 0;
    }
 
    control() {
       if (
-         DataOfGameManager.nbPreciousCreated + DataOfGameManager.score / 10 ==
-            DataOfGameManager.currentLevelData().preciousNumber &&
-         DataOfGameManager.score < DataOfGameManager.currentLevelData().scoreTrigger
+         DGLM.nbPreciousCreated + DGLM.score / 10 == DGLM.currentLevelData().preciousNumber &&
+         DGLM.score < DGLM.currentLevelData().scoreTrigger
       ) {
-         Observer.trigger("off");
+         this.observer.trigger("off");
          alert("Perdu !");
       }
    }
 }
 
-export default new ControlAndUpdateData();
+export default ControlAndUpdateData;
