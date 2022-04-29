@@ -65,6 +65,12 @@ export const insertInHTMLTarget = (text, tagOfTarget) => {
 /** ToDO ... */
 export const buildAlertWindow = (text, parentHTML) => {};
 
+/**
+ * Build & display the start window
+ * @param {number} level
+ * @param {HTMLElement} parentHTML
+ * @param {() => void} startGame
+ */
 export const buildLevelWindowAndCountBeforeStart = (level, parentHTML, startGame) => {
    const divContainer = document.createElement("div");
 
@@ -83,6 +89,11 @@ export const buildLevelWindowAndCountBeforeStart = (level, parentHTML, startGame
    createCount(updateCount, startGame);
 };
 
+/**
+ * Create start count before game beggining
+ * @param {(count: number) => void} updateCount
+ * @param {() => void} startGame
+ */
 const createCount = (updateCount, startGame) => {
    let count = 4;
 

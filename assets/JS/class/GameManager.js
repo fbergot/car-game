@@ -13,23 +13,27 @@ class GameManager {
       this.canvas.height = 690;
       this.utils = utils;
       this.images = this.utils.imagesBuilder();
-      this.controlAndUpdateData = new Factory("control", {});
-      this.observer = new Factory("observer", {});
-      this.preciousManager = new Factory("precious", {
+      this.end = false;
+      // --- class composition
+      this.controlAndUpdateData = Factory._getFactoryInst().getGameInstance("control", {});
+      this.observer = Factory._getFactoryInst().getGameInstance("observer", {});
+      this.preciousManager = Factory._getFactoryInst().getGameInstance("precious", {
          img: this.images.precious.precious_1,
          ctx: this.ctx,
       });
-      this.carManager = new Factory("car", { img: this.images.cars.red_car, ctx: this.ctx });
-      this.barriersManager = new Factory("barrier", {
+      this.carManager = Factory._getFactoryInst().getGameInstance("car", {
+         img: this.images.cars.red_car,
+         ctx: this.ctx,
+      });
+      this.barriersManager = Factory._getFactoryInst().getGameInstance("barrier", {
          img: this.images.barriers.rocks.rocks_1,
          ctx: this.ctx,
       });
-      this.roadManager = new Factory("road", {
+      this.roadManager = Factory._getFactoryInst().getGameInstance("road", {
          img1: this.images.roads.road_1,
          img2: this.images.roads.road_2,
          ctx: this.ctx,
       });
-      this.end = false;
    }
 
    initGame() {

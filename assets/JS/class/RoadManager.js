@@ -8,7 +8,7 @@ class RoadManager {
       this.ctx = ctx;
       this.road_chunk_1_y = 0;
       this.road_chunk_2_y = -690;
-      this.controlAndUpdateData = new Factory("control", {});
+      this.controlAndUpdateData = Factory._getFactoryInst().getGameInstance("control", {});
    }
 
    createRoad() {

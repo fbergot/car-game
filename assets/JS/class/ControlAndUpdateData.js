@@ -4,7 +4,7 @@ import Factory from "./factory/Factory.js";
 
 class ControlAndUpdateData {
    constructor() {
-      this.observer = new Factory("observer");
+      this.observer = Factory._getFactoryInst().getGameInstance("observer");
       this.countRoadLoop = 0;
    }
 
