@@ -5,7 +5,8 @@ const easyLevel = [
       scoreTrigger: 100,
       precious: [],
       loopStep: 10,
-      barriers: 10,
+      barriersNumber: 10,
+      barriers: [],
    },
    {
       name: 2,
@@ -13,7 +14,8 @@ const easyLevel = [
       scoreTrigger: 150,
       precious: [],
       loopStep: 14,
-      barriers: 15,
+      barriersNumber: 10,
+      barriers: [],
    },
    {
       name: 3,
@@ -21,7 +23,8 @@ const easyLevel = [
       scoreTrigger: 200,
       precious: [],
       loopStep: 18,
-      barriers: 20,
+      barriersNumber: 10,
+      barriers: [],
    },
    {
       name: 4,
@@ -29,7 +32,8 @@ const easyLevel = [
       scoreTrigger: 250,
       precious: [],
       loopStep: 22,
-      barriers: 20,
+      barriersNumber: 10,
+      barriers: [],
    },
    {
       name: 5,
@@ -37,6 +41,7 @@ const easyLevel = [
       scoreTrigger: 300,
       precious: [],
       loopStep: 26,
+      barriersNumber: 10,
       barriers: 20,
    },
 ];

@@ -1,14 +1,8 @@
-import CarManager from "./CarManager.js";
-import PreciousManager from "./PreciousManager.js";
 import { dataOfGameManager as DGLM } from "./DataOfGameManager.js";
-import RoadManager from "./RoadManager.js";
 import {
    insertInHTMLTarget,
    buildLevelWindowAndCountBeforeStart as winCount,
 } from "../utils.js";
-import ControlAndUpdateData from "./ControlAndUpdateData.js";
-import Observer from "./observer/Observer.js";
-import BarriersManager from "./BarriersManager.js";
 import Factory from "./factory/Factory.js";
 
 class GameManager {
@@ -41,9 +35,14 @@ class GameManager {
    initGame() {
       this.utils.insertInHTMLTarget(DGLM.score, "#score");
       this.utils.insertInHTMLTarget(DGLM.life, "#life");
-      DGLM.loadDataOfLevel(this.preciousManager.generatePrecious.bind(this.preciousManager));
-      DGLM.generateRandomPrecious();
 
+      DGLM.loadDataOfLevel(this.preciousManager.generatePrecious.bind(this.preciousManager));
+      DGLM.loadDataOfLevel(this.barriersManager.generateBarriers.bind(this.barriersManager));
+      DGLM.generateRandomElements.forEach((func) => {
+         func();
+      });
+
+      console.log(DGLM.generateRandomElements);
       this.observer.subscribe(() => {
          this.on();
       }, "on");
@@ -65,6 +64,7 @@ class GameManager {
       this.roadManager.createRoad();
       this.preciousManager.createPrecious();
       this.carManager.createCar();
+      this.barriersManager.createBarriers();
       // this.controlAndUpdateData.control();
 
       if (this.end) return;

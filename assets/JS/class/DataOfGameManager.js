@@ -10,6 +10,7 @@ class DataOfGameManager extends LevelManager {
    #_yCar;
    #_yCar_length;
    #_nbPreciousCreated;
+   #_nbBarriersCreated;
 
    constructor() {
       super();
@@ -22,6 +23,7 @@ class DataOfGameManager extends LevelManager {
       this.#_yCar = 620;
       this.#_yCar_length = 80;
       this.#_nbPreciousCreated = 0;
+      this.#_nbBarriersCreated = 0;
       this.timerId = 0;
    }
 
@@ -79,7 +81,15 @@ class DataOfGameManager extends LevelManager {
    }
 
    set nbPreciousCreated(value) {
-      return (this.#_nbPreciousCreated = value);
+      this.#_nbPreciousCreated = value;
+   }
+
+   get nbBarriersCreated() {
+      return this.#_nbBarriersCreated;
+   }
+
+   set nbBarriersCreated(value) {
+      this.#_nbBarriersCreated = value;
    }
 }
 

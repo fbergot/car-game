@@ -8,7 +8,7 @@ class LevelManager {
       this.levelsData = [...selectLevel("easy")];
       this.#indexLevel = 0;
       this.#_currentLevelData = this.levelsData[this.#indexLevel];
-      this.generateRandomPrecious;
+      this.generateRandomElements = [];
    }
 
    /**
@@ -22,7 +22,9 @@ class LevelManager {
                this.#_currentLevelData = this.levelsData[this.#indexLevel];
                this.loopStep = this.#_currentLevelData.loopStep;
                levelData.preciousNumber -= 1;
-               this.generateRandomPrecious();
+               this.generateRandomElements.forEach((func) => {
+                  func();
+               });
                return;
             }
             alert("bien joué !");
@@ -38,7 +40,7 @@ class LevelManager {
     * @param {() => void} generateFunction
     */
    loadDataOfLevel(generateFunction) {
-      this.generateRandomPrecious = generateFunction;
+      this.generateRandomElements.push(generateFunction);
    }
 
    controlLevelInProgress() {}
